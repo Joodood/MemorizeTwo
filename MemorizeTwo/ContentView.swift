@@ -45,6 +45,7 @@ struct ContentView: View {
         .font(.largeTitle)
     }
     
+  //two arg 1-which way ur going, 2- the symbol
     func cardCountAdjuster(by offset: Int, symbol: String) -> some View {
         Button(action: {
             cardCount += offset
@@ -52,30 +53,17 @@ struct ContentView: View {
         }, label: {
             Image(systemName: "symbol")
         })
+        .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
         
     }
     
-    
+    //your the caller so u use by not 'offset'
     var cardRemover: some View {
-        Button(action: {
-            if cardCount > 1 {
-                cardCount = cardCount - 1
-            }
-            
-        }, label: {
-            Image(systemName: "rectangle.stack.badge.minus.fill")
-        })
+        cardCountAdjuster(by: -1, symbol: "rectangle.stack.badge.minus.fill")
     }
     
     var cardAdder: some View {
-        Button(action: {
-            if cardCount < emojis.count {
-                cardCount += 1
-            }
-            
-        }, label: {
-            Image(systemName: "rectangle.stack.fill.badge.plus")
-        })
+        cardCountAdjuster(by: +1, symbol: "rectangle.stack.badge.plus.fill")
     }
 }
 
