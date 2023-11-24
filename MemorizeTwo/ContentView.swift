@@ -9,31 +9,34 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let emojis = ["👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️", "😈", "🤰🏽" ]
+    let emojis = ["👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️", "😈", "🤰🏽", "👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️", "😈", "🤰🏽", "👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️", "😈", "🤰🏽", "👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️", "😈", "🤰🏽"]
     
     @State var cardCount: Int = 4
     
     
     var body: some View {
         VStack {
-            cards
+            ScrollView {
+                cards
+            }
+          
+            Spacer()
             cardCountAdjusters
         }
         .padding()
     }
     
-
     
     var cards: some View {
-        HStack {
+        return LazyVGrid(columns: [GridItem(.adaptive(minimum: 120)), GridItem()]){
             //up to and not including 4, ...4 includes 4
             ForEach(0..<cardCount, id: \.self) { index in
                 CardView(content: emojis[index])
+                    .aspectRatio(2/3, contentMode: .fit)
             }
-    }
+        }
         .foregroundColor(.orange)
     }
-    
     
     var cardCountAdjusters: some View {
         HStack {
@@ -49,13 +52,13 @@ struct ContentView: View {
     func cardCountAdjuster(by offset: Int, symbol: String) -> some View {
         Button(action: {
             cardCount += offset
-            
         }, label: {
-            Image(systemName: "symbol")
+            //dont put quotes around symbol
+            Image(systemName: symbol)
         })
         .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
-        
     }
+    
     
     //your the caller so u use by not 'offset'
     var cardRemover: some View {
@@ -67,20 +70,29 @@ struct ContentView: View {
     }
 }
 
+
+
+
+
+
 struct CardView: View {
+    
     let content: String
+    
     @State var isFaceUp = true
     
     var body: some View {
+        
+         
         ZStack {
             let base = RoundedRectangle(cornerRadius: 12)
-            if isFaceUp {
+            Group {
                 base.fill(.white)
                 base.strokeBorder(lineWidth: 2)
-                Text(content)
-            } else {
-               base.fill()
+                Text(content).font(.largeTitle)
             }
+//            .opacity(isFaceUp ? 1 : 0)
+            base.fill().opacity(isFaceUp ? 0: 1)
         }
         .onTapGesture {
             isFaceUp.toggle()
