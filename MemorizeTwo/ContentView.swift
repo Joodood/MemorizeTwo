@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let emojis = ["👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️", "😈", "🎅" ]
+    let emojis = ["👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️", "😈", "🤰🏽" ]
     
     @State var cardCount: Int = 4
     
@@ -54,7 +54,6 @@ struct ContentView: View {
         })
         
     }
-    
     
     
     var cardRemover: some View {
