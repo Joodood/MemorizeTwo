@@ -30,16 +30,24 @@ class EmojiMemoryGame {
     //global vars will be intialized first
     private static let emojis = ["👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️", "😈", "🤰🏽", "👻", "🎃", "🕷️"]
 
-
+    private static func createMemoryGame() -> MemoryGame<String> {
+        return MemoryGame<String>( numberOfPairsOfCards: 4) { pairIndex in
+            return EmojiMemoryGame.emojis[pairIndex]
+        }
+    }
         //this model is going to create a MemoryGame of type String, specified the dont care which is a string
     
     //we call var and lets properties in swift
     //so this is a property called model, its a var and ur initializing it here, or else you would need an init, so here your giiving it an initial value
     //the order that your properties are initialized is undetermined
     //you cant use one class to initialize another they all go at once
-    private var model: MemoryGame<String> = MemoryGame<String>( numberOfPairsOfCards: 4) { pairIndex in
-        return EmojiMemoryGame.emojis[pairIndex]
-        }
+//    private var model: MemoryGame<String> = MemoryGame<String>( numberOfPairsOfCards: 4) { pairIndex in
+//        return EmojiMemoryGame.emojis[pairIndex]
+//        }
+    
+    private var model = EmojiMemoryGame.createMemoryGame()
+    
+
     
     
     var cards: Array<MemoryGame<String>.Card> {

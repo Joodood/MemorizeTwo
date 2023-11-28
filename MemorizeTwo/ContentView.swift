@@ -29,7 +29,7 @@ struct ContentView: View {
                     .aspectRatio(2/3, contentMode: .fit)
             }
         }
-        .foregroundColor(.orange)
+        .foregroundColor(Color.orange)
     }
     
 }
