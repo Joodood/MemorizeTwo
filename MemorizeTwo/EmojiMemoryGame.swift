@@ -21,18 +21,24 @@ import SwiftUI
 
 //it reads as the model is a memory game with this many cards (pictures of emojis) and we create the cards by using this pairindex to index inside the array
 
+//the viewmodel below is a stateless ui with a model and two things cards and choose, everything else is private, so the var cards and func choose are the only things the view can use and thats all the view needs
 
-class EmojiMemoryGame {
+
+class EmojiMemoryGame:  {
     //static means make emojis global, but namespace it inside my class
     //now its a private global variable only for us to use
     
     //by making that global i will be making sure i initialize it before i use it here
     //global vars will be intialized first
-    private static let emojis = ["👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️", "😈", "🤰🏽", "👻", "🎃", "🕷️"]
+    private static let emojis = ["👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️", "😈", "🤰🏽", "👻", "🎃", "🕷️", "😈", "🎅", "👻", "🎃", "🕷️"]
 
     private static func createMemoryGame() -> MemoryGame<String> {
-        return MemoryGame<String>( numberOfPairsOfCards: 4) { pairIndex in
-            return EmojiMemoryGame.emojis[pairIndex]
+        return MemoryGame(numberOfPairsOfCards: 10) { pairIndex in
+            if emojis.indices.contains(pairIndex) {
+                return emojis[pairIndex]
+            } else {
+                return "⁉️"
+            }
         }
     }
         //this model is going to create a MemoryGame of type String, specified the dont care which is a string
@@ -53,8 +59,16 @@ class EmojiMemoryGame {
     var cards: Array<MemoryGame<String>.Card> {
         return model.cards
     }
-    //put the _ because its clear to card we have a card it is a card
     
+    // MARK: - Intents
+    
+    func shuffle() {
+        //model, please shuffle
+        model.shuffle()
+    }
+    
+    
+    //put the _ because its clear to card we have a card it is a card
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
     }

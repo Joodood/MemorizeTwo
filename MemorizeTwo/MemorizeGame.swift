@@ -14,6 +14,7 @@ import Foundation
 
 //you have a bunch of cards, and you choose them
 
+//model
 
 
 struct MemoryGame<CardContent> {
@@ -27,7 +28,7 @@ struct MemoryGame<CardContent> {
         cards = []
         //add numberOfPairsOfCards x 2 cards
         //the cards are always first going to be face down, and not going to be matched
-        for pairIndex in 0..<numberOfPairsOfCards {
+        for pairIndex in 0..<max(2, numberOfPairsOfCards) {
             let content: CardContent = cardContentFactory(pairIndex)
             cards.append(Card(content: content))
             cards.append(Card(content: content))
@@ -39,10 +40,17 @@ struct MemoryGame<CardContent> {
         
     }
     
+    
+    mutating func shuffle() {
+        cards.shuffle()
+        print(cards)
+    }
+    
+    
     //nested struct card
     //make dont care for content cuz we dont care if card content is a jpeg, img, or text
     struct Card {
-        var isFaceUp = false
+        var isFaceUp = true
         var isMatched = false
         //the content on the card is not going to change so use let 
         let content: CardContent

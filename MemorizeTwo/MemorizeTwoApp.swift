@@ -11,7 +11,7 @@ import SwiftUI
 struct MemorizeTwoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            EmojiMemoryGameView()
         }
     }
 }
